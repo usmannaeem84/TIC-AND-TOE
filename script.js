@@ -18,23 +18,27 @@ const WinnerPattern = [
 let Turn = true;
 
 
-boxes.forEach((box) => {
-    box.addEventListener("click", () => {
-        if (Turn) {
-            box.innerHTML = "O"
-            box.classList.add("yellow")
-            Turn = false;
-        } else {
-            box.innerHTML = "X"
-            box.classList.add("blue")
-            Turn = true;
-        }
-        box.disabled = true
-        checkWinner()
+
+
+    boxes.forEach((box) => {
+        box.addEventListener("click", () => {
+            if (Turn) {
+                box.innerHTML = "O"
+                box.classList.remove("blue")
+                box.classList.add("yellow")
+                Turn = false;
+            } else {
+                box.innerHTML = "X"
+                box.classList.add("blue")
+                Turn = true;
+            }
+            box.disabled = true
+            checkWinner()
+        })
     })
 
 
-})
+
 
 
 function disable() {
@@ -48,36 +52,36 @@ function enable() {
     for (const box of boxes) {
         box.disabled = false
     }
-   
+
 }
+
+
 
 function restart() {
 
     for (let box of boxes) {
         box.innerHTML = ""
-       
     }
-result.innerHTML=""
-result.classList.add("hide")
+    result.innerHTML = ""
+    result.classList.add("hide")
     enable()
-    
-    
-    
+  
+
 }
 
 
 function checkWinner() {
-    
+
     for (const pattern of WinnerPattern) {
         let pos1Val = boxes[pattern[0]].innerText;
         let pos2Val = boxes[pattern[1]].innerText;
         let pos3Val = boxes[pattern[2]].innerText;
-        
+
         if (pos1Val !== "" && pos2Val !== "" && pos3Val !== "") {
             if (pos1Val === pos2Val && pos2Val === pos3Val) {
                 disable()
 
-       
+
                 result.innerHTML = ` Congratsulation ! Winner is ${pos1Val}`
                 result.classList.remove("hide")
                 result.classList.add("Result")
